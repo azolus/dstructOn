@@ -15,7 +15,7 @@ each occurence of `[]Node` with `int[]`.
 `Nodes` are key-value pairs, that allow us to effectively sort strings by
 assigning a value to them. This can be implemented in whichever way suits your
 problem, eg you can score by length, occurences of the character `a` or any
-other helpful sorting criterion.
+other helpful sorting criterium.
 */
 
 package heap
@@ -116,7 +116,6 @@ func (h *minHeap) GetTop(n int) []Node {
 		}}}
 
 	for i := 0; i < n; i++ {
-		// fmt.Println("pre-insert", hh.Nodes)
 		topIdx = hh.Nodes[0].Key.(pointIdx).idx
 		k1, ok1 = h.getLeftChild(topIdx)
 		k2, ok2 = h.getRightChild(topIdx)
@@ -130,11 +129,8 @@ func (h *minHeap) GetTop(n int) []Node {
 			sc2 = h.Nodes[k2].Score
 			hh.InsertNode(Node{Key: pointIdx{pointer: &(h.Nodes[k2]), idx: k2}, Score: sc2})
 		}
-		// fmt.Println("post-insert", hh.Nodes)
 
 		popped := *(hh.ExtractTop()).Key.(pointIdx).pointer
-		// fmt.Println("Popped", popped)
-		// fmt.Println("post-pop", hh.Nodes)
 		out = append(out, popped)
 	}
 
@@ -351,7 +347,6 @@ func (h *maxHeap) GetTop(n int) []Node {
 		}}}
 
 	for i := 0; i < n; i++ {
-		// fmt.Println("pre-insert", hh.Nodes)
 		topIdx = hh.Nodes[0].Key.(pointIdx).idx
 		k1, ok1 = h.getLeftChild(topIdx)
 		k2, ok2 = h.getRightChild(topIdx)
@@ -365,11 +360,8 @@ func (h *maxHeap) GetTop(n int) []Node {
 			sc2 = h.Nodes[k2].Score
 			hh.InsertNode(Node{Key: pointIdx{pointer: &(h.Nodes[k2]), idx: k2}, Score: sc2})
 		}
-		// fmt.Println("post-insert", hh.Nodes)
 
 		popped := *(hh.ExtractTop()).Key.(pointIdx).pointer
-		// fmt.Println("Popped", popped)
-		// fmt.Println("post-pop", hh.Nodes)
 		out = append(out, popped)
 	}
 
