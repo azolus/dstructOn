@@ -46,6 +46,10 @@ func NewLinkedList() *linkedList {
 	return &linkedList{}
 }
 
+func (l *linkedList) GetLength() int {
+	return l.len
+}
+
 func (l *linkedList) Prepend(data interface{}) {
 	second := l.head
 	l.head = NewNode()
