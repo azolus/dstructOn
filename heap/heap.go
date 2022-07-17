@@ -25,6 +25,7 @@ of copying values around.
 package heap
 
 import (
+	"fmt"
 	"log"
 )
 
@@ -186,6 +187,19 @@ func (h *heap) swapNodes(i, j int) {
 	h.nodes[i], h.nodes[j] = h.nodes[j], h.nodes[i]
 }
 
+// Get size of heap
+func (h *heap) GetSize() int {
+	return len(h.nodes)
+}
+
+// Print contents of heap
+func (h *heap) Print() {
+	fmt.Println("Heap: { (node  score) ... }")
+	for _, v := range h.nodes {
+		fmt.Printf("%s  %d\n", v.key, v.score)
+	}
+}
+
 // ============================================================================
 // Min Heap
 // ============================================================================
@@ -212,6 +226,18 @@ func (h *minHeap) InsertNode(n node) {
 	h.HeapifyUp(len(h.nodes) - 1)
 }
 
+// Delete top node, fill blank with last node and re-heapify
+func (h *minHeap) DeleteTop() {
+	l := len(h.nodes) - 1
+	if l < 0 {
+		log.Fatal("Can't delete Top node. Heap is already empty...")
+	}
+
+	h.nodes[0], h.nodes[l] = h.nodes[l], h.nodes[0]
+	h.nodes = h.nodes[:l]
+	h.HeapifyDown(0)
+}
+
 // Extract top node, fill blank with last node and re-heapify
 func (h *minHeap) extractTopNode() node {
 	l := len(h.nodes) - 1
@@ -220,7 +246,7 @@ func (h *minHeap) extractTopNode() node {
 	}
 
 	ex := h.nodes[0]
-	h.nodes[0] = h.nodes[l]
+	h.nodes[0], h.nodes[l] = h.nodes[l], h.nodes[0]
 	h.nodes = h.nodes[:l]
 	h.HeapifyDown(0)
 
@@ -359,6 +385,18 @@ func (h *maxHeap) HeapifyDown(i int) {
 	}
 }
 
+// Delete top node, fill blank with last node and re-heapify
+func (h *maxHeap) DeleteTop() {
+	l := len(h.nodes) - 1
+	if l < 0 {
+		log.Fatal("Can't delete Top node. Heap is already empty...")
+	}
+
+	h.nodes[0], h.nodes[l] = h.nodes[l], h.nodes[0]
+	h.nodes = h.nodes[:l]
+	h.HeapifyDown(0)
+}
+
 // Extract top node, fill blank with last node and re-heapify
 func (h *maxHeap) extractTopNode() node {
 	l := len(h.nodes) - 1
@@ -367,7 +405,7 @@ func (h *maxHeap) extractTopNode() node {
 	}
 
 	ex := h.nodes[0]
-	h.nodes[0] = h.nodes[l]
+	h.nodes[0], h.nodes[l] = h.nodes[l], h.nodes[0]
 	h.nodes = h.nodes[:l]
 	h.HeapifyDown(0)
 
@@ -429,4 +467,69 @@ func (h *maxHeap) GetTop(n int) []interface{} {
 	}
 
 	return DumpKeys(out)
+}
+
+// ============================================================================
+// Heap Sort :)
+// ============================================================================
+
+/*
+
+Exapmle for minHeap
+-------------------
+Deleting nodes actually only shrinks the capacity of h.nodes and
+re-heapifies, so the already sorted nodes won't really be deleted:
+
+[0, 2, 1, 6, 4, 28, 31, 42]
+<------------------------->
+             ↑
+            heap
+
+h.DeleteTop()
+
+[1, 2, 28, 6, 4, 42, 31, 0]
+<---------------------->
+           ↑
+          heap
+
+h.DeleteTop()
+
+[2, 4, 28, 6, 31, 42, 1, 0]
+<------------------>
+        ↑
+       heap
+
+        .
+        .
+        .
+
+h.DeleteTop()
+
+ [42, 31, 28, 6, 4, 2, 1, 0]
+<>
+↑
+heap (empty)
+
+Once we've popped all nodes from the
+heap, the underlying array will have been sorted, so we just need to ouput
+that
+
+*/
+
+// Sort the minHeap and return slice of sorted keys and slice of respective scores
+func (h *minHeap) Sort() ([]interface{}, []int) {
+	sortedNodes := h.nodes
+	for range sortedNodes {
+		h.DeleteTop()
+	}
+	return DumpKeys(sortedNodes), DumpScores(sortedNodes)
+}
+
+// Sort the maxHeap and return slice of sorted keys and slice of respective scores
+func (h *maxHeap) Sort() ([]interface{}, []int) {
+	sortedNodes := h.nodes
+	for range sortedNodes {
+		h.DeleteTop()
+	}
+	return DumpKeys(sortedNodes), DumpScores(sortedNodes)
 }
