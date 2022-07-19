@@ -6,8 +6,8 @@ and the like.
 ## ToC
 
 1. [Introduction to Heaps](#Intro) 
-2. [Basic Usage](#Basic-Usage)
-3. [Heap Sort](#Heap-Sort)
+2. [Basic Usage](#Basic%20Usage)
+3. [Heap Sort](#Heap%20Sort)
 
 
 ## What is a heap?
@@ -271,7 +271,7 @@ original heap. If it is of interest, I can dedicate a bigger section to it
 later.
 
 
-# Heapsort
+# Heap Sort
 
 We can sort an array or slice `arr`, by using a slice `slice := arr[:]` of it
 to build a (min/max) heap. The root node will be the biggest/smallest node in
