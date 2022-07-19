@@ -1,0 +1,15 @@
+strict digraph G {
+	ordering="out"
+	"42" [color=red];
+	"4" [color=orange];
+	"3" [color=blue];
+	3 -> 42;
+	3 -> 6;
+	42 -> 5;
+	42 -> 4;
+	6 -> 12;
+	6 -> 8;
+	5 -> 7;
+	5 -> 9;
+	4 -> 19;
+}
