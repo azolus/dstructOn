@@ -7,7 +7,7 @@ type maxHeap struct {
 }
 
 // Create an empty maxHeap
-func NewMaxHeap(arr []node) *maxHeap {
+func NewMaxHeap() *maxHeap {
 	h := maxHeap{heap{}}
 	return &h
 }
