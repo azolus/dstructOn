@@ -227,7 +227,7 @@ Next, we repeat the procedure at the position of the former child node. We just 
 
 We identify the smallest child node of `42`, which is `4` (orange). Since `4 < 42`, we swap them:
 
-![min heap after swap no. 3](heap_extract_5.svg)
+![min heap after swap no. 3](assets/heap_extract_5.svg)
 
 ```
                array
@@ -243,7 +243,7 @@ Finally, we repeat the procedure at the position of the former child node for on
 
 We identify the smallest child node of `42`, which is `19` (blue). Since `19 < 42`, we swap them:
 
-![min heap after re-heapifying](heap_extract_6.svg)
+![min heap after re-heapifying](assets/heap_extract_6.svg)
 
 ```
                array
